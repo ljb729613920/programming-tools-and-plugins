@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>离线正则表达式</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		table{
+			width:700px;
+			margin: 30px auto 0;
+		}
+		caption{
+			font-size:20px;
+		}
+		tr{
+			height:30px;
+
+		}
+		#inputStr{
+			width:695px;
+			height:50px;
+		}
+		#inputReg{
+			width:500px;
+		}
+		button{
+			margin:0 10px;
+			padding:0 5px;
+		}
+	</style>
+	<script type="text/javascript">
+		/**
+		 * /核心调用代码
+		 */
+		window.onload=function(){
+			var res;
+			// 获取输出对象
+			var obj = document.getElementById('output');
+
+			/**
+			 * /封装获取输入的字符串及正则表达式 Common
+			 *  将获取的正则表达式字符串转换成RegExp对象
+			 */
+			function Common(){
+				// 获取字符串
+				this.str = document.getElementById('inputStr').value;
+				// 获取正则表达式
+				this.regExp = document.getElementById('inputReg').value;
+				// 封装成reg,两种方法,任选一种
+				// this.regExp = new RegExp(this.regExp,'ig');
+				this.regExp = eval(this.regExp);
+			}
+
+
+			/**
+			 * /调用test()方法 核心功能模块
+			 *  以下功能模块原理相同
+			 */
+			test.onclick = function(){
+				// 实例化Common对象获取regExp对象及str字符串
+				var reg = new Common();
+				// 调用reg.test(str)方法
+				res = reg.regExp.test(reg.str);
+				// 结果添加输入到页面
+				obj.innerHTML  = res;
+				console.log(res);
+			}
+
+			/**
+			 * /调用exec()方法,原理同上
+			 */
+			exec.onclick = function(){
+				var reg = new Common();
+				res=reg.regExp.exec(reg.str);
+				obj.innerHTML  = res;
+				console.log(res);
+			}
+
+			/**
+			 * /调用match()方法,原理同上
+			 */
+			match.onclick = function(){
+				obj.innerText=null;
+				var reg = new Common();
+				res = reg.str.match(reg.regExp);
+				// 遍历结果
+				for(var i in res){
+					obj.innerText+=res[i]+'\r\n';
+				}
+				console.log(res);
+			}
+
+			/**
+			 * /调用search()方法,原理同上
+			 */
+			search.onclick = function(){
+				var reg = new Common();
+				res = reg.str.search(reg.regExp);
+				obj.innerHTML =res;
+				console.log(res);
+			}
+
+			/**
+			 * /调用replace()方法,原理同上
+			 */
+			replace.onclick = function(){
+				var tip = window.prompt('您要替换成什么?');
+				var reg = new Common();
+				res = reg.str.replace(reg.regExp,tip);
+				obj.innerHTML = res;
+				console.log(res);
+			}
+
+			/**
+			 * /调用split()方法,原理同上
+			 */
+			split.onclick = function(){
+				obj.innerText=null;
+				var reg = new Common();
+				res = reg.str.split(reg.regExp);
+				// 遍历结果
+				for(var i in res){
+					obj.innerText+=res[i]+'\r\n';
+				}
+				console.log(res);
+			}
+			//清楚模块
+			clean.onclick = function(){
+				inputStr.value=null;
+				inputReg.value=null;
+				output.innerHTML='';
+			}
+		}
+	</script>
+</head>
+<body>
+	<table border="1" rules="all" align="center">
+	<caption>离线正则表达式</caption>
+		<tr>
+			<td>匹配字符串:</td>
+		</tr>
+		<tr>
+			<td>
+				<textarea id="inputStr" placeholder="请输入要检索的字符串"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>正则表达式:&nbsp;
+				<input type="text" id="inputReg" placeholder="请输入正则表达式"></input>
+				<!-- 配套两种获取RegExp对象的不同输入方式 -->
+				<!-- /<input type="text" id="inputReg" placeholder="请输入正则表达式"></input>/
+				<input type="checkbox" name="patten" id="g" value="g" checked>全局匹配</input>
+				<input type="checkbox" name="patten" id="i" value="i">不区分大小写</input> -->
+			</td>
+		</tr>
+		<tr>
+			<td>方法:
+				<button type="button" id="test" value="test">test()</button>
+				<button type="button" id="exec" value="exec">exec()</button>
+				<button type="button" id="match" value="match">match()</button>
+				<button type="button" id="search" value="search">search()</button>
+				<button type="button" id="replace" value="replace">replace()</button>
+				<button type="button" id="split" value="split">split()</button>
+				<button type="button" id="clean" value="clean">复位</button>
+			</td>
+		</tr>
+		<tr>
+			<td>匹配结果:</td>
+		</tr>
+		<tr>
+			<pre>
+			<td id="output"></td>
+		</tr>
+	</table>
+</body>
+</html>

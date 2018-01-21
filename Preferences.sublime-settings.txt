@@ -1,0 +1,16 @@
+{
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/User/SublimeLinter/brogrammer (SL).tmTheme",  //Ö÷Ìâ
+	"default_line_ending": "unix",
+	"ensure_newline_at_eof_on_save": true,
+	"fade_fold_buttons": false,
+	"font_face": "Microsoft YaHei Mono",
+	"font_size": 16,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"tab_size": 2,
+	"theme": "Brogrammer.sublime-theme",
+	"trim_trailing_white_space_on_save": true
+}
