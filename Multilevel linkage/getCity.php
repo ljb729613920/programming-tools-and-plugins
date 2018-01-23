@@ -7,8 +7,8 @@
 
 	$city=[];
 	foreach($cites as $v){
-		$res = (Array)$v['name'];
-		$city[]=$res[0];
+		 $city[] = (Array)$v['name'];
 	}
-
+	echo '<pre>';
+	var_dump($city);exit;
  	echo json_encode($city);

@@ -1,10 +1,9 @@
 <?php
 
-	$info = simplexml_load_file('info.xml');
+	$xml = simplexml_load_file('info.xml');
 
 	$pro=[];
-	foreach($info ->province as $v){
-		$pro[] = (Array)$v['name'][0][0];
+	foreach($xml ->province as $zhoushaolin){
+		$pro[] = (Array)$zhoushaolin['name'];
 	}
-
 	echo json_encode($pro);

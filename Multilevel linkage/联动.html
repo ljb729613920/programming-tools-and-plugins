@@ -22,11 +22,11 @@
 		},'json');
 
 		// 获取市级信息
-		$('provinceSelect').onmouseup=function(){
+		$('provinceSelect').onclick=function(){
 			$('result').innerHTML=null;
 			get('getCity.php','province='+this.value,function(res){
 				// 重置数据
-				citySelect.length=0;
+				citySelect.length=1;
 				for(var i in res){
 					// DOM操作
 					// 1.创建option
@@ -35,13 +35,13 @@
 					citySelect.appendChild(option);
 				}
 			},'json');
-
 		}
 		// 获取区县级信息
-		$('citySelect').onmouseup=function(){
+		$('citySelect').onclick=function(){
+			$('firstCounty').selected="selected";
 			get('getCounty.php','city='+this.value,function(res){
 				// 重置数据
-				countySelect.length=0;
+				countySelect.length=1;
 				for(var i in res){
 					// DOM操作
 					// 1.创建option
@@ -51,12 +51,12 @@
 				}
 			});
 		}
-		$('countySelect').onmouseup=function(){
+		$('countySelect').onclick=function(){
 			weatherCode = this.value;
 		}
 		$('btn').onclick=function(){
 			get('weather.php','weatherCode='+weatherCode,function(res){
-				var str = "温度:"+res['weatherinfo']['temp']+",湿度:"+res['weatherinfo']['SD']+",风向:"+res['weatherinfo']['WD']+"  "+res['weatherinfo']['WS'];
+				var str =res['weatherinfo']['city']+",温度:"+res['weatherinfo']['temp']+",湿度:"+res['weatherinfo']['SD']+",风向:"+res['weatherinfo']['WD']+"  "+res['weatherinfo']['WS'];
 				$('result').innerHTML=str;
 			});
 		}
@@ -65,13 +65,13 @@
 </head>
 <body>
 	省级:<select name="province" id="provinceSelect">
-		<option value="" selected disabled>请选择</option>
+		<option value="" id="firstProvince" selected disabled>请选择</option>
 	</select>
 	市级:<select name="city" id="citySelect">
-		<option value="" selected disabled>请选择</option>
+		<option value="" id="firstCity" selected disabled>请选择</option>
 	</select>
 	区/县:<select name="county" id="countySelect">
-		<option value="" selected disabled>请选择</option>
+		<option value="" id="firstCounty" selected disabled>请选择</option>
 	</select>
 	<button id="btn" type="button">查询天气</button><br>
 	<div id="result"></div>
